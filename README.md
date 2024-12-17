@@ -23,13 +23,6 @@ Welcome to **DockMaster**, a comprehensive resource for learning Docker from **b
 
 ---
 
-## 📚 **12. Resources and References**  
-- [Official Docker Documentation](https://docs.docker.com)  
-- [Docker Cheat Sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)  
-- [Docker Hub](https://hub.docker.com/)  
-
----
-
 ## 🎯 **How to Contribute**  
 We welcome contributions!  
 1. Fork this repository.  
