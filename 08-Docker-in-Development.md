@@ -85,3 +85,55 @@ Hot reloading improves productivity by automatically applying code changes to ru
    Modify a file in your project directory and verify the application updates automatically in the container.
 
 ---
+
+## **3. Debugging Containers**
+
+Debugging a running container is essential for troubleshooting issues during development.
+
+### **3.1 Access the Container Shell**
+Attach to a running container’s shell for manual inspection:
+```bash
+docker exec -it <container_id> /bin/bash
+```
+Example:
+```bash
+docker exec -it my-app-container /bin/bash
+```
+
+### **3.2 Check Logs**
+View real-time logs for a container:
+```bash
+docker logs -f <container_id>
+```
+
+### **3.3 Debug with Docker Compose**
+Use `docker-compose logs` to see logs for all services in a multi-container setup:
+```bash
+docker-compose logs -f
+```
+
+### **3.4 Expose Debugging Ports**
+Expose debugging ports to connect with debuggers like **VS Code**, **PyCharm**, or **Chrome DevTools**:
+1. Update `docker-compose.yml`:
+   ```yaml
+   services:
+     app:
+       image: my-app
+       ports:
+         - "9229:9229" # Node.js debugger port
+   ```
+2. Start the container:
+   ```bash
+   docker-compose up
+   ```
+3. Attach your IDE debugger to the exposed port.
+
+### **3.5 Use Debugging Tools Inside Containers**
+Install debugging tools in your container:
+- **Node.js**: Run with the `--inspect` flag to enable debugging.
+  ```bash
+  docker run -p 9229:9229 -v $(pwd):/app my-app node --inspect server.js
+  ```
+- **Python**: Use `debugpy` to attach a remote debugger.
+
+---
