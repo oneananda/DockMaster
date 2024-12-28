@@ -137,3 +137,39 @@ Install debugging tools in your container:
 - **Python**: Use `debugpy` to attach a remote debugger.
 
 ---
+
+## **4. Example: Dockerized Development Workflow**
+
+Here’s an example setup for a Node.js application with hot reloading and debugging:
+
+### **Dockerfile**
+```Dockerfile
+FROM node:16
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+CMD ["npm", "run", "start:dev"]
+```
+
+### **docker-compose.yml**
+```yaml
+version: '3'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "3000:3000"
+      - "9229:9229" # Debugger port
+    environment:
+      NODE_ENV: development
+```
+
+### **Start the Services**
+```bash
+docker-compose up
+```
+
+---
