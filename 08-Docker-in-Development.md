@@ -173,3 +173,18 @@ docker-compose up
 ```
 
 ---
+
+## **5. Summary**
+
+| **Feature**              | **Command/Configuration**                                                                     |
+|--------------------------|-----------------------------------------------------------------------------------------------|
+| Set environment variables | `-e "VAR_NAME=value"` or `environment` in `docker-compose.yml`.                              |
+| Use hot reloading         | Bind mount source code and use file watchers (e.g., `nodemon`, Flask debug mode).            |
+| Access container shell    | `docker exec -it <container_id> /bin/bash`.                                                  |
+| View container logs       | `docker logs -f <container_id>` or `docker-compose logs -f`.                                 |
+| Debug application         | Expose debugging ports (e.g., `9229` for Node.js) and attach a debugger from your IDE.       |
+
+---
+
+With these techniques, you can efficiently develop, debug, and test applications using Docker. Let me know if you'd like more examples or advanced configurations! 🚀
+
