@@ -104,3 +104,89 @@ jobs:
 ```
 
 ---
+
+## **3. Cloud Deployments**
+
+Deploying Docker containers to cloud platforms ensures scalability, reliability, and easy integration with other services.
+
+### **3.1 AWS ECS (Elastic Container Service)**
+1. **Prepare Your Image**:
+   Push your Docker image to Amazon Elastic Container Registry (ECR).
+
+2. **Set Up ECS Cluster**:
+   - Create an ECS cluster via the AWS Management Console or CLI:
+     ```bash
+     aws ecs create-cluster --cluster-name my-cluster
+     ```
+
+3. **Define a Task Definition**:
+   Specify the container image and runtime configuration.
+
+4. **Deploy Your Service**:
+   - Run a service based on your task definition:
+     ```bash
+     aws ecs create-service --cluster my-cluster --service-name my-service --task-definition my-task
+     ```
+
+---
+
+### **3.2 Google Cloud Platform (GCP)**
+1. **Push Image to Google Container Registry (GCR)**:
+   - Tag and push your image:
+     ```bash
+     docker tag my-app gcr.io/<PROJECT-ID>/my-app
+     docker push gcr.io/<PROJECT-ID>/my-app
+     ```
+
+2. **Deploy to Google Kubernetes Engine (GKE)**:
+   - Create a Kubernetes cluster:
+     ```bash
+     gcloud container clusters create my-cluster
+     ```
+   - Deploy the image:
+     ```yaml
+     apiVersion: apps/v1
+     kind: Deployment
+     metadata:
+       name: my-app
+     spec:
+       replicas: 3
+       selector:
+         matchLabels:
+           app: my-app
+       template:
+         metadata:
+           labels:
+             app: my-app
+         spec:
+           containers:
+           - name: my-app
+             image: gcr.io/<PROJECT-ID>/my-app
+     ```
+   - Apply the deployment:
+     ```bash
+     kubectl apply -f deployment.yaml
+     ```
+
+---
+
+### **3.3 Azure Container Instances**
+1. **Push to Azure Container Registry (ACR)**:
+   - Tag and push the image:
+     ```bash
+     docker tag my-app <ACR-NAME>.azurecr.io/my-app
+     docker push <ACR-NAME>.azurecr.io/my-app
+     ```
+
+2. **Deploy the Container**:
+   - Run the container in Azure Container Instances:
+     ```bash
+     az container create \
+       --resource-group my-resource-group \
+       --name my-app \
+       --image <ACR-NAME>.azurecr.io/my-app \
+       --dns-name-label my-app \
+       --ports 80
+     ```
+
+---
