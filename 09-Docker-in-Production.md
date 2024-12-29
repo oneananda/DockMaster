@@ -46,3 +46,61 @@ Docker Swarm is Docker's native clustering and orchestration tool for managing a
    - Inspect a service: `docker service inspect <service-name>`
 
 ---
+
+## **2. CI/CD Pipelines with Docker**
+
+Continuous Integration and Continuous Deployment (CI/CD) pipelines automate the process of building, testing, and deploying Dockerized applications. Popular CI/CD tools like **Jenkins**, **GitHub Actions**, and **GitLab CI** integrate seamlessly with Docker.
+
+### **2.1 CI/CD Pipeline Stages**
+1. **Build**:
+   - Create a Docker image for the application.
+   - Example:
+     ```yaml
+     - name: Build Docker Image
+       run: docker build -t my-app:latest .
+     ```
+
+2. **Test**:
+   - Run automated tests inside the container.
+   - Example:
+     ```yaml
+     - name: Run Tests
+       run: docker run my-app:latest npm test
+     ```
+
+3. **Push to Docker Registry**:
+   - Push the Docker image to a registry like Docker Hub or a private registry.
+   - Example:
+     ```yaml
+     - name: Push to Docker Hub
+       run: docker push my-dockerhub-username/my-app:latest
+     ```
+
+4. **Deploy**:
+   - Deploy the image to a production environment (e.g., Swarm, Kubernetes, or cloud services).
+
+### **2.2 Example: GitHub Actions Workflow**
+```yaml
+name: CI/CD Pipeline
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t my-dockerhub-username/my-app:latest .
+
+      - name: Push to Docker Hub
+        run: docker push my-dockerhub-username/my-app:latest
+```
+
+---
